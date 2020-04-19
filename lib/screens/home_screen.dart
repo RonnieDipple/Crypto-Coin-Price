@@ -25,9 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Theme
-                  .of(context)
-                  .primaryColor,
+              Theme.of(context).primaryColor,
               Colors.grey[900],
             ],
           ),
@@ -39,31 +37,51 @@ class _HomeScreenState extends State<HomeScreen> {
               return Center(
                 child: CircularProgressIndicator(
                   valueColor:
-                  AlwaysStoppedAnimation(Theme
-                      .of(context)
-                      .accentColor),
+                      AlwaysStoppedAnimation(Theme.of(context).accentColor),
                 ),
               );
             }
             final List<CryptoCoin> cryptoCoins = snapshot.data;
-            return ListView
-                .builder(itemCount: cryptoCoins.length,
-              itemBuilder: (BuildContext context, int index) {
-                final cryptoCoin = cryptoCoins[index];
-                return ListTile(leading: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('${++index}', style: TextStyle(
-                        color: Theme
-                            .of(context)
-                            .accentColor,
-                        fontWeight: FontWeight.w600
-                    ),
-                    ),
-                  ],
-                ),
-                );
+            return RefreshIndicator(
+              color: Theme.of(context).accentColor,
+              onRefresh: () async{
+                setState(() => _page = 0);
               },
+              child: ListView.builder(
+                itemCount: cryptoCoins.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final cryptoCoin = cryptoCoins[index];
+                  return ListTile(
+                    leading: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          '${++index}',
+                          style: TextStyle(
+                            color: Theme.of(context).accentColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    title: Text(
+                      cryptoCoin.fullName,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      cryptoCoin.name,
+                      style: TextStyle(color: Colors.white70), //Ticker symbol
+                    ),
+                    trailing: Text(
+                      '\$${cryptoCoin.price.toStringAsFixed(4)}',
+                      style: TextStyle(
+                        color: Theme.of(context).accentColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  );
+                },
+              ),
             );
           },
         ),
