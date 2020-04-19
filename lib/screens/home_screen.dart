@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            child: _buildBody(state),
           );
         },
       ),
