@@ -1,7 +1,7 @@
 
-import 'package:cryptocoinprice/crypto/crypto_bloc.dart';
-import 'package:cryptocoinprice/crypto/crypto_event.dart';
-import 'package:cryptocoinprice/crypto/crypto_state.dart';
+import 'package:cryptocoinprice/crypto/blocs/crypto_bloc.dart';
+import 'package:cryptocoinprice/crypto/blocs/crypto_event.dart';
+import 'package:cryptocoinprice/crypto/blocs/crypto_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

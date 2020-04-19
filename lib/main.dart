@@ -1,10 +1,10 @@
 
-import 'package:cryptocoinprice/crypto/crypto_bloc.dart';
+import 'package:cryptocoinprice/crypto/blocs/crypto_bloc.dart';
 import 'package:cryptocoinprice/repositories/crypto_repository.dart';
 import 'package:cryptocoinprice/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cryptocoinprice/crypto/crypto_event.dart';
+import 'package:cryptocoinprice/crypto/blocs/crypto_event.dart';
 
 
 
