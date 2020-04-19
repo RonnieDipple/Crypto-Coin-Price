@@ -5,7 +5,6 @@ abstract class CryptoEvent extends Equatable {
   const CryptoEvent();
 
   @override
-  // TODO: implement props
   List<Object> get props => [];
 }
 
@@ -22,7 +21,7 @@ class LoadMoreCryptoCoins extends CryptoEvent{
   // once we add more coins to the crypto loaded state we need to keep track of the crypto coins we already have
   final List<CryptoCoin> cryptoCoins;
 
-  const LoadMoreCryptoCoins({this.cryptoCoins})
+  const LoadMoreCryptoCoins({this.cryptoCoins});
 
   @override
   List<Object> get props => [cryptoCoins];

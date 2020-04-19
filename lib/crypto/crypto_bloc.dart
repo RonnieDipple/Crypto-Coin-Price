@@ -6,7 +6,8 @@ import 'package:cryptocoinprice/repositories/crypto_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
-import './bloc.dart';
+import 'crypto_event.dart';
+import 'crypto_state.dart';
 
 // Handles all the business logic, stuff like api calls etc
 // Converts all events to states

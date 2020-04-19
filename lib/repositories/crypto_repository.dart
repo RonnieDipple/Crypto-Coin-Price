@@ -33,7 +33,7 @@ class CryptoRepository extends BaseCryptoRepository {
       // returns new list of coins
       return cryptoCoins;
     } catch (err) {
-      throw(err);
+      throw err;
     }
   }
 
