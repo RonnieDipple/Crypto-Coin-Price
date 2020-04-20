@@ -1,10 +1,10 @@
-
 import 'package:cryptocoinprice/crypto/blocs/crypto_bloc.dart';
 import 'package:cryptocoinprice/crypto/blocs/crypto_event.dart';
 import 'package:cryptocoinprice/crypto/blocs/crypto_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,12 +13,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Top Coins'),
+        title: Text('Crypto Coins'),
       ),
       body: BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) {
@@ -42,11 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildBody(CryptoState state) {
     if (state is CryptoLoading) {
-      return Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
-        ),
-      );
+      return Center(child: SpinKitFadingCircle(
+        itemBuilder: (BuildContext context, int index) {
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              color: index.isEven ? Colors.lightBlue : Colors.green,
+            ),
+          );
+        },
+      ));
     } else if (state is CryptoLoaded) {
       return RefreshIndicator(
         color: Theme.of(context).accentColor,
@@ -54,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
           context.bloc<CryptoBloc>().add(RefreshCryptoCoins());
         },
         child: NotificationListener<ScrollNotification>(
-          onNotification: (notification) => _onScrollNotification(notification, state),
+          onNotification: (notification) =>
+              _onScrollNotification(notification, state),
           child: ListView.builder(
             controller: _scrollController,
             itemCount: state.cryptoCoins.length,
@@ -107,9 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  bool _onScrollNotification(ScrollNotification notif, CryptoLoaded state){
-    if(notif is ScrollEndNotification && _scrollController.position.extentAfter == 0){
-      context.bloc<CryptoBloc>().add(LoadMoreCryptoCoins(cryptoCoins: state.cryptoCoins));
+  bool _onScrollNotification(ScrollNotification notif, CryptoLoaded state) {
+    if (notif is ScrollEndNotification &&
+        _scrollController.position.extentAfter == 0) {
+      context
+          .bloc<CryptoBloc>()
+          .add(LoadMoreCryptoCoins(cryptoCoins: state.cryptoCoins));
     }
 
     return false;
