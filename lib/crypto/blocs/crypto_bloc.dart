@@ -24,8 +24,8 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
 
   @override
   Stream<CryptoState> mapEventToState(
-    CryptoEvent event,
-  ) async* {
+      CryptoEvent event,
+      ) async* {
     if (event is AppStarted) {
       yield* _mapAppStartedToState();
     } else if (event is RefreshCryptoCoins) {
